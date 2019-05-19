@@ -22,16 +22,16 @@ jobs:
                 pip install pytest
                 pytest test_calculations.py
 
-    workflows:
-        version: 2
-        myworkflow:
-            jobs:
-                # マスターブランチの場合のみlintを実行する
-                - lint:
-                    filters:
-                        branches:
-                            only: master
-                # testの実行にlintを必要とする
-                - test:
-                    requires:
-                        - lint
+workflows:
+    version: 2
+    myworkflow:
+        jobs:
+            # マスターブランチの場合のみlintを実行する
+            - lint:
+                filters:
+                    branches:
+                        only: master
+            # testの実行にlintを必要とする
+            - test:
+                requires:
+                    - lint
