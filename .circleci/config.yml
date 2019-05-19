@@ -1,6 +1,6 @@
 version: 2
 jobs:
-    build:
+    lint:
         docker:
             - image: circleci/python:3.6
         steps:
@@ -9,7 +9,29 @@ jobs:
             - run: |
                 python3.6 -m venv venv
                 source ./venv/bin/activate
-                pip install sphinx
-                make html
-            - store_artifacts:
-                path: _build/html
+                pip install flake8
+                flake8 test_calculations.py
+    test:
+        docker:
+            - image: circleci/python:3.6
+        steps:
+            - checkout
+            - run: |
+                python3.6 -m venv venv
+                source ./venv/bin/activate
+                pip install pytest
+                pytest test_calculations.py
+
+    workflows:
+        version: 2
+        myworkflow:
+            jobs:
+                # マスターブランチの場合のみlintを実行する
+                - lint:
+                    filters:
+                        branches:
+                            only: master
+                # testの実行にlintを必要とする
+                - test:
+                    requires:
+                        - lint
