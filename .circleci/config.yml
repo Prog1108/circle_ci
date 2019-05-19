@@ -15,4 +15,4 @@ jobs:
                 python manage.py test
             # テスト結果の保存先を指定
             - store_test_results:
-                path: test-results
+                path: ../../test-results
