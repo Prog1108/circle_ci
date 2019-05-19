@@ -9,8 +9,10 @@ jobs:
             - run: |
                 python3.6 -m venv venv
                 source ./venv/bin/activate
-                pip install pytest
-                pytest test_calculations.py --junit-xml=test-results/pytest.xml
+                pip install django
+                cd cafe/apps
+                python manage.py migrate
+                python manage.py test
             # テスト結果の保存先を指定
             - store_test_results:
                 path: test-results
