@@ -6,13 +6,14 @@ jobs:
         steps:
             # ソースコードのチェックアウト
             - checkout
-            - run: |
-                python3.6 -m venv venv
-                source ./venv/bin/activate    
-            # pytestをインストール
-                pip install pytest
-            # pytestコマンドの実行
-                pytest test_calculations.py --junit-xml=test-results/pytest.xml
+            - run:
+                commands: |
+                    python3.6 -m venv venv
+                    source ./venv/bin/activate
+                # pytestをインストール
+                    pip install pytest
+                # pytestコマンドの実行
+                    pytest test_calculations.py --junit-xml=test-results/pytest.xml
             # テスト結果の保存先を指定
             - store_test_results:
                 path: test-results
