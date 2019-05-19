@@ -11,5 +11,5 @@ jobs:
                 source ./venv/bin/activate
                 pip install sphinx
                 make html
-            - store_test_artifacts:
+            - store_artifacts:
                 path: _build/html
